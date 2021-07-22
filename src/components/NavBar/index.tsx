@@ -1,20 +1,22 @@
 import React from "react";
 
+import { useLocation } from "react-router-dom";
+
 // Styles
 import { Wrapper, Nav, Anchor } from "./styles";
 
 export default function NavBar() {
-  let location = "add";
+  let location = useLocation();
   return (
     <Nav>
       <Wrapper>
-        <Anchor href="" active={location === "add"}>
+        <Anchor to="/" $active={location.pathname === "/add"}>
           Add
         </Anchor>
-        <Anchor href="" active={location === "learn"}>
+        <Anchor to="learn" $active={location.pathname === "/learn"}>
           Learn
         </Anchor>
-        <Anchor href="" active={location === "test"}>
+        <Anchor to="/" $active={location.pathname === "/test"}>
           Test
         </Anchor>
       </Wrapper>

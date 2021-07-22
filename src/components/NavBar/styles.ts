@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 
+import { Link } from "react-router-dom";
+
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-around;
@@ -12,7 +14,7 @@ export const Nav = styled.nav`
   margin-left: 10px;
 `;
 
-export const Anchor = styled.a<{ active?: boolean }>`
+export const Anchor = styled(Link)<{ $active?: boolean }>`
   background-color: #ff4523;
   color: black;
   text-decoration: none;
@@ -23,8 +25,8 @@ export const Anchor = styled.a<{ active?: boolean }>`
   border: 1px white solid;
   border: 1px white solid;
 
-  ${({ active }) =>
-    active
+  ${({ $active }) =>
+    $active
       ? css`
           background-color: brown;
           color: white;

@@ -15,8 +15,14 @@ import {
   ButtonContainer,
 } from "./styles";
 
+import { dataType } from "../../types";
+
 export default function Add() {
-  const [data, setData] = useState(["", "", ""]);
+  const [data, setData] = useState<dataType>({
+    type: "",
+    word: "",
+    translation: "",
+  });
   console.log(data);
 
   return (
@@ -29,7 +35,7 @@ export default function Add() {
         let word = entries.next().value;
         let translation = entries.next().value;
 
-        setData([type, word, translation]);
+        setData({ type, word, translation });
         e.preventDefault();
       }}
     >
