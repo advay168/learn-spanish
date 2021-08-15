@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 // Styles
 import { Table, TableHeading, TableData } from "./styles";
@@ -9,11 +9,27 @@ import { dataType } from "../../types";
 // Assets
 import crossImage from "../../images/cross.png";
 
-interface props {
-  data: dataType[];
+function deleteWord(
+  event: React.MouseEvent,
+  json: dataType[],
+  setJson: React.Dispatch<React.SetStateAction<dataType[]>>
+) {
+  let id = event.currentTarget.parentElement?.parentElement?.dataset.id;
+  const url = "http://localhost:5000/remove/" + id;
+  fetch(url, {
+    method: "delete",
+  });
+  setJson(json.filter((el) => el.id !== Number(id)));
 }
 
-export default function Learn({ data }: props) {
+export default function Learn() {
+  let [json, setJson] = useState<dataType[]>([]);
+  useEffect(() => {
+    fetch("http://127.0.0.1:5000/learn")
+      .then((resp) => resp.json())
+      .then((json) => setJson(json))
+      .catch((err) => console.error(err));
+  }, []);
   return (
     <Table>
       <thead>
@@ -31,8 +47,8 @@ export default function Learn({ data }: props) {
         </tr>
       </thead>
       <tbody>
-        {data.map((el) => (
-          <tr key={el.word}>
+        {json.map((el) => (
+          <tr key={el.id} data-id={el.id}>
             <TableData>{el.type}</TableData>
             <TableData>{el.word}</TableData>
             <TableData>{el.translation}</TableData>
@@ -41,7 +57,7 @@ export default function Learn({ data }: props) {
                 src={crossImage}
                 alt="cross"
                 style={{ width: "20px", cursor: "pointer" }}
-                onClick={(e) => console.log(el.word)}
+                onClick={(e) => deleteWord(e, json, setJson)}
               />
             </td>
           </tr>

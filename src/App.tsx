@@ -22,7 +22,8 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/add" />} />
         <Route path="/add" element={<Add />} />
-        <Route
+        <Route path="/learn" element={<Learn />} />
+        {/* <Route
           path="/learn"
           element={
             <Learn
@@ -33,7 +34,7 @@ export default function App() {
               ]}
             />
           }
-        />
+        /> */}
       </Routes>
     </Router>
   );

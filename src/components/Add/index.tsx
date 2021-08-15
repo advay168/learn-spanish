@@ -17,13 +17,26 @@ import {
 
 import { dataType } from "../../types";
 
+function sendData(data: dataType) {
+  const url = "http://localhost:5000/add";
+  fetch(url, {
+    method: "post",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+}
+
 export default function Add() {
   const [data, setData] = useState<dataType>({
     type: "",
     word: "",
     translation: "",
+    id: 0,
   });
-  console.log(data);
+  if (data.type) {
+    console.log(data);
+    sendData(data);
+  }
 
   return (
     <form
@@ -35,7 +48,7 @@ export default function Add() {
         let word = entries.next().value;
         let translation = entries.next().value;
 
-        setData({ type, word, translation });
+        setData({ type, word, translation, id: null });
         e.preventDefault();
       }}
     >
