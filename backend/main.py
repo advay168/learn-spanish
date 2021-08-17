@@ -16,8 +16,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
-models.Base.metadata.create_all(bind=engine)
+try:
+  models.Base.metadata.create_all(bind=engine)
+except:
+    pass
 
 
 def get_db():
