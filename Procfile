@@ -1,1 +1,1 @@
-web: uvicorn backend/main:app
+web: uvicorn main:app --app-dir backend
