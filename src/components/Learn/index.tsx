@@ -9,13 +9,15 @@ import { dataType } from "../../types";
 // Assets
 import crossImage from "../../images/cross.png";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 function deleteWord(
   event: React.MouseEvent,
   json: dataType[],
   setJson: React.Dispatch<React.SetStateAction<dataType[]>>
 ) {
   let id = event.currentTarget.parentElement?.parentElement?.dataset.id;
-  const url = "http://localhost:5000/remove/" + id;
+  const url = baseUrl + "remove/" + id;
   fetch(url, {
     method: "delete",
   });
@@ -25,7 +27,7 @@ function deleteWord(
 export default function Learn() {
   let [json, setJson] = useState<dataType[]>([]);
   useEffect(() => {
-    fetch("http://127.0.0.1:5000/learn")
+    fetch(baseUrl + "learn")
       .then((resp) => resp.json())
       .then((json) => setJson(json))
       .catch((err) => console.error(err));
