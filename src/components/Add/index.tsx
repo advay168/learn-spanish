@@ -17,8 +17,10 @@ import {
 
 import { dataType } from "../../types";
 
+const baseUrl = process.env.REACT_APP_BASE_URL;
+
 function sendData(data: dataType) {
-  const url = "http://localhost:5000/add";
+  const url = baseUrl + "add";
   fetch(url, {
     method: "post",
     headers: { "Content-Type": "application/json" },

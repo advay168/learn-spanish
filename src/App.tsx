@@ -23,18 +23,6 @@ export default function App() {
         <Route path="/" element={<Navigate to="/add" />} />
         <Route path="/add" element={<Add />} />
         <Route path="/learn" element={<Learn />} />
-        {/* <Route
-          path="/learn"
-          element={
-            <Learn
-              data={[
-                { type: "rgt", word: "swtr", translation: "tgr" },
-                { type: "rgt", word: "swrtr", translation: "tgr" },
-                { type: "rgt", word: "swetr", translation: "tgr" },
-              ]}
-            />
-          }
-        /> */}
       </Routes>
     </Router>
   );
