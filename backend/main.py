@@ -10,7 +10,7 @@ app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=("http://localhost:3000", "https://learn-spanish.herokuapp.com", "https://learn-spanish.onrender.com/"),
+    allow_origins=("http://localhost:3000", "https://learn-spanish.herokuapp.com", "https://learn-spanish.onrender.com"),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
