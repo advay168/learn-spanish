@@ -6,11 +6,13 @@ import models, schemas, db_transactions
 
 from sqlalchemy.orm import Session
 
+import config
+
 app = FastAPI()
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=("http://localhost:3000", "https://learn-spanish.herokuapp.com", "https://learn-spanish.onrender.com"),
+    allow_origins=config.CORS_ALLOWED_ORIGINS,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
