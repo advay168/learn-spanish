@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import REACT_APP_BASE_URL from "react";
 
 // Components
 import RadioGroup from "../RadioGroup";
@@ -29,17 +29,6 @@ function sendData(data: dataType) {
 }
 
 export default function Add() {
-  const [data, setData] = useState<dataType>({
-    type: "",
-    word: "",
-    translation: "",
-    id: 0,
-  });
-  if (data.type) {
-    console.log(data);
-    sendData(data);
-  }
-
   return (
     <form
       onSubmit={(e) => {
@@ -50,7 +39,8 @@ export default function Add() {
         let word = entries.next().value;
         let translation = entries.next().value;
 
-        setData({ type, word, translation, id: null });
+        sendData({ type, word, translation, id: null });
+        form.reset();
         e.preventDefault();
       }}
     >
