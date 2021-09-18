@@ -1,5 +1,3 @@
-import REACT_APP_BASE_URL from "react";
-
 // Components
 import RadioGroup from "../RadioGroup";
 

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 
+// Components
+import Loading from "../Loading";
+
 // Styles
 import { Table, TableHeading, TableData } from "./styles";
 
@@ -32,6 +35,11 @@ export default function Learn() {
       .then((json) => setJson(json))
       .catch((err) => console.error(err));
   }, []);
+  console.log(json);
+
+  if (!json.length) {
+    return <Loading />;
+  }
   return (
     <Table>
       <thead>
