@@ -4,3 +4,8 @@ export type dataType = {
   translation: string;
   id: number | null;
 };
+
+export type questionType = {
+  answer: dataType;
+  options: dataType[];
+}

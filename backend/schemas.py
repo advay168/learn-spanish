@@ -1,5 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
+from sqlalchemy.sql.base import Options
 
 class Data(BaseModel):
     type: str
@@ -9,3 +10,7 @@ class Data(BaseModel):
 
     class Config:
         orm_mode = True
+
+class TestQuestion(BaseModel):
+    answer: Data
+    options: list[Data]

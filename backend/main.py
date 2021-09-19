@@ -47,3 +47,7 @@ async def remove(id: int, session: Session = Depends(get_db)):
 async def add(data: schemas.Data, session: Session = Depends(get_db)):
     db_transactions.add_word(session, data)
     return True
+
+@app.get("/test", response_model=schemas.TestQuestion)
+async def test(session: Session = Depends(get_db)):
+    return db_transactions.get_random_word(session)
