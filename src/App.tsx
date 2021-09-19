@@ -11,6 +11,7 @@ import {
 import Header from "./components/Header";
 import Add from "./components/Add";
 import Learn from "./components/Learn";
+import Test from "./components/Test";
 
 // Styles
 import "./App.styles.css";
@@ -23,6 +24,7 @@ export default function App() {
         <Route path="/" element={<Navigate to="/add" />} />
         <Route path="/add" element={<Add />} />
         <Route path="/learn" element={<Learn />} />
+        <Route path="/test" element={<Test />} />
       </Routes>
     </Router>
   );
