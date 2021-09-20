@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Loading from "../Loading";
 
 // Styles
-import { Container } from "./styles";
+import { Container, Heading, OptionsGrid, Option } from "./styles";
 
 // Types
 import { questionType } from "../../types";
@@ -29,24 +29,18 @@ export default function Test() {
 
   return (
     <Container>
-      <h3>What is the translation of the word {answer.word} in english?</h3>
-      <h4>Options:</h4>
-      {options.slice(0, index).map((option) => (
-        <div key={option.id}>
-          <button>{option.translation}</button>
-          <br />
-        </div>
-      ))}
-      <div key={answer.id}>
-        <button>{answer.translation}</button>
-        <br />
-      </div>
-      {options.slice(index).map((option) => (
-        <div key={option.id}>
-          <button>{option.translation}</button>
-          <br />
-        </div>
-      ))}
+      <Heading>
+        What is the translation of the word {answer.word} in english?
+      </Heading>
+      <OptionsGrid>
+        {options.slice(0, index).map((option) => (
+          <Option key={option.id}>{option.translation}</Option>
+        ))}
+        <Option key={answer.id}>{answer.translation}</Option>
+        {options.slice(index).map((option) => (
+          <Option key={option.id}>{option.translation}</Option>
+        ))}
+      </OptionsGrid>
     </Container>
   );
 }

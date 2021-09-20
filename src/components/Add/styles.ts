@@ -73,5 +73,4 @@ export const ButtonContainer = styled.div`
 export const AddButton = styled.button`
   width: 60px;
   padding: 5px;
-  /* height: 12%; */
 `;
