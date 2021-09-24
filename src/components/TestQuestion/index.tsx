@@ -6,7 +6,6 @@ import { Container, Heading, OptionsGrid, Option, NextButton } from "./styles";
 // Types
 import { dataType, questionType } from "../../types";
 import Loading from "../Loading";
-import { ECDH } from "crypto";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
