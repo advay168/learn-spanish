@@ -25,10 +25,13 @@ export const Option = styled.button`
   height: 90px;
   font-size: 20px;
   color: black;
+  border-radius: 15px;
 `;
 
 export const NextButton = styled.button`
   width: 60%;
+  max-width:500px;
   height: 40px;
   margin: 50px auto;
+  border-radius: 10px;
 `;
