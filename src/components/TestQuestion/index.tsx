@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useRef } from "react";
+
+// Components
+import Loading from "../Loading";
 
 // Styles
 import { Container, Heading, OptionsGrid, Option, NextButton } from "./styles";
 
 // Types
 import { dataType, questionType } from "../../types";
-import Loading from "../Loading";
 
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -13,24 +15,33 @@ export default function TestQuestion() {
   const [question, setQuestion] = useState<questionType>();
   const [toEnglishOrSpanish, setToEnglishOrSpanish] = useState("");
   const [answered, setAnswered] = useState(false);
-  const [loadNext, setLoadNext] = useState(false);
-  useEffect(() => {
-    setAnswered(false);
-    setLoadNext(false);
-    fetch(baseUrl + "test")
-      .then((resp) => resp.json())
-      .then((json) => setQuestion(json))
-      .catch((err) => console.error(err));
-    setToEnglishOrSpanish(["en", "es"][Math.floor(Math.random() * 2)]);
-  }, [loadNext]);
+  const [loadNextQuestion, setLoadNextQuestion] = useState(false);
+  const loading = useRef(false);
+
   const allOptions = useMemo(() => {
     if (!question) return [];
     const { answer, options } = question;
     let index = Math.floor(Math.random() * (options.length + 1));
     return [...options.slice(0, index), answer, ...options.slice(index)];
   }, [question]);
+
+  useEffect(() => {
+    if (loading.current) return;
+    loading.current = true;
+    setAnswered(false);
+    setLoadNextQuestion(false);
+    setQuestion(undefined);
+    fetch(baseUrl + "test")
+      .then((resp) => resp.json())
+      .then((json) => setQuestion(json))
+      .then(() => (loading.current = false))
+      .catch((err) => console.error(err));
+    setToEnglishOrSpanish(["en", "es"][Math.floor(Math.random() * 2)]);
+  }, [loadNextQuestion]);
+
   if (!question) return <Loading />;
   const { answer } = question;
+
   const onClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     const givenAnswer = e.currentTarget.innerText;
     if (
@@ -44,6 +55,7 @@ export default function TestQuestion() {
     }
     setAnswered(true);
   };
+
   let questionString: string;
   let optionAttribute: keyof dataType;
   if (toEnglishOrSpanish === "en") {
@@ -72,7 +84,7 @@ export default function TestQuestion() {
         ))}
       </OptionsGrid>
       {answered && (
-        <NextButton onClick={() => setLoadNext(true)}>Next</NextButton>
+        <NextButton onClick={() => setLoadNextQuestion(true)}>Next</NextButton>
       )}
     </Container>
   );

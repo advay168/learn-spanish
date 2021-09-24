@@ -1,8 +1,17 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 
 const Container = styled.div`
   display: inline-flex;
   margin-left: 10px;
+`;
+
+const keyframesAnimation = keyframes`
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 `;
 
 const Animated = styled.div`
@@ -11,15 +20,7 @@ const Animated = styled.div`
   border-radius: 50%;
   margin: auto;
   background-image: linear-gradient(red, black, green);
-  animation: loadingAnimation infinite 1s linear;
-  @keyframes loadingAnimation {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(360deg);
-    }
-  }
+  animation: ${keyframesAnimation} infinite 1s linear;
 `;
 
 export default function Animation() {
