@@ -4,7 +4,14 @@ import React, { useEffect, useState, useMemo, useRef } from "react";
 import Loading from "../Loading";
 
 // Styles
-import { Container, Heading, OptionsGrid, Option, NextButton } from "./styles";
+import {
+  Container,
+  Heading,
+  OptionsGrid,
+  Option,
+  NextButton,
+  AnswerResponse,
+} from "./styles";
 
 // Types
 import { dataType, questionType } from "../../types";
@@ -14,7 +21,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 export default function TestQuestion() {
   const [question, setQuestion] = useState<questionType>();
   const [toEnglishOrSpanish, setToEnglishOrSpanish] = useState("");
-  const [answered, setAnswered] = useState(false);
+  const [answerChecked, setAnswerChecked] = useState("");
   const [loadNextQuestion, setLoadNextQuestion] = useState(false);
   const loading = useRef(false);
 
@@ -28,7 +35,7 @@ export default function TestQuestion() {
   useEffect(() => {
     if (loading.current) return;
     loading.current = true;
-    setAnswered(false);
+    setAnswerChecked("");
     setLoadNextQuestion(false);
     setQuestion(undefined);
     fetch(baseUrl + "test")
@@ -48,12 +55,11 @@ export default function TestQuestion() {
       givenAnswer ===
       (toEnglishOrSpanish === "en" ? answer.translation : answer.word)
     ) {
-      alert("Correct!");
+      setAnswerChecked("Correct!");
     } else {
-      alert("Wrong!");
+      setAnswerChecked("Wrong!");
       e.currentTarget.style.backgroundColor = "#ff4500";
     }
-    setAnswered(true);
   };
 
   let questionString: string;
@@ -69,22 +75,33 @@ export default function TestQuestion() {
     <Container>
       <Heading>{questionString}</Heading>
       <OptionsGrid>
-        {allOptions.map((option) => (
+        {allOptions.map((option, idx) => (
           <Option
             onClick={onClick}
             key={option.id}
-            disabled={answered}
+            disabled={answerChecked ? true : false}
             style={{
               backgroundColor:
-                answered && option.id === answer.id ? "#adff2f" : "",
+                answerChecked && option.id === answer.id ? "#adff2f" : "",
             }}
           >
             {option[optionAttribute] as string}
           </Option>
         ))}
       </OptionsGrid>
-      {answered && (
-        <NextButton onClick={() => setLoadNextQuestion(true)}>Next</NextButton>
+      {answerChecked && (
+        <>
+          <AnswerResponse
+            style={{
+              color: answerChecked === "Correct!" ? "green" : "red",
+            }}
+          >
+            {answerChecked}
+          </AnswerResponse>
+          <NextButton onClick={() => setLoadNextQuestion(true)} autoFocus>
+            Next
+          </NextButton>
+        </>
       )}
     </Container>
   );
