@@ -4,6 +4,8 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import SessionLocal, engine
 import models, schemas, db_transactions
 
+import conjugate
+
 from sqlalchemy.orm import Session
 
 import config
@@ -51,3 +53,10 @@ async def add(data: schemas.Data, session: Session = Depends(get_db)):
 @app.get("/test", response_model=schemas.TestQuestion)
 async def test(session: Session = Depends(get_db)):
     return db_transactions.get_random_word(session)
+
+@app.get("/conjugate")
+async def conjugate_(word:str, subject:str, mood:str="Indicativo", tense:str="presente"):
+    assert subject in ["1s","2s","3s","1p","2p","3p"]
+    conjugated = conjugate.conjugate(word,subject, mood, tense)
+    return conjugated
+
