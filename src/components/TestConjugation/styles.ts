@@ -29,7 +29,7 @@ export const AnswerResponse = styled.div`
   font-size: 30px;
 `;
 
-export const NextButton = styled.button`
+export const Button = styled.button`
   width: 60%;
   max-width: 500px;
   height: 40px;

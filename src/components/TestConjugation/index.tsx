@@ -7,30 +7,16 @@ import Loading from "../Loading";
 import {
   Container,
   Heading,
-  NextButton,
+  Button,
   AnswerResponse,
   AnswerInput,
   InputLabel,
 } from "./styles";
 
-const baseUrl = process.env.REACT_APP_BASE_URL;
+//Data
+import tenses from "./tenses.json";
 
-const tenses = [
-  ["Indicativo", "presente", ["1s", "2s", "3s", "1p", "2p", "3p"]],
-  ["Indicativo", "pretérito imperfecto", ["1s", "2s", "3s", "1p", "2p", "3p"]],
-  [
-    "Indicativo",
-    "pretérito perfecto simple",
-    ["1s", "2s", "3s", "1p", "2p", "3p"],
-  ],
-  ["Indicativo", "futuro", ["1s", "2s", "3s", "1p", "2p", "3p"]],
-  ["Subjuntivo", "presente", ["1s", "2s", "3s", "1p", "2p", "3p"]],
-  ["Imperativo", "Afirmativo", ["2s", "3s", "1p", "2p", "3p"]],
-  ["Imperativo", "non", ["2s no", "3s no", "1p no", "2p no", "3p no"]],
-  ["Condicional", "Condicional", ["1s", "2s", "3s", "1p", "2p", "3p"]],
-  ["Gerundio", "Gerondio", [""]],
-  ["Participo", "Participo", ["1s", "2s", "3s", "1p", "2p", "3p"]],
-];
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 export default function TestQuestion() {
   const [verb, setVerb] = useState("");
@@ -62,7 +48,6 @@ export default function TestQuestion() {
       setTense(mood + " " + tense);
       const subject = subjects[subjectIndex];
       setSubject(subject);
-      //Todo: Move fetch to useEffect after verb is loaded
       const resp2 = await fetch(
         baseUrl +
           `conjugate?word=${verb}&subject=${subject}&mood=${mood}&tense=${tense}`
@@ -110,7 +95,7 @@ export default function TestQuestion() {
           }
         />
       </InputLabel>
-      {!answerChecked && <NextButton onClick={onClick}> Check</NextButton>}
+      {!answerChecked && <Button onClick={onClick}> Check</Button>}
       {answerChecked && (
         <>
           <AnswerResponse
@@ -122,9 +107,9 @@ export default function TestQuestion() {
             <br />
             <span style={{ color: "green" }}>{answerMessage}</span>
           </AnswerResponse>
-          <NextButton onClick={() => setLoadNextQuestion(true)} autoFocus>
+          <Button onClick={() => setLoadNextQuestion(true)} autoFocus>
             Next
-          </NextButton>
+          </Button>
         </>
       )}
     </Container>
