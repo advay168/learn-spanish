@@ -5,7 +5,7 @@ conjugator = mlconjug3.Conjugator(language="es")
 
 
 def conjugate(word: str, subject: str, mood: str, tense: str) -> str:
-    debug:Any = []
+    debug: Any = []
     try:
         verb = conjugator.conjugate(word)
         if verb is None:
