@@ -37,12 +37,14 @@ def get_random_word(db: Session) -> schemas.TestQuestion:
     )
     return schemas.TestQuestion(answer=answer, options=options)
 
+
 def get_random_verb(db: Session) -> str:
-    answer = db.query(models.Word).filter_by(type="Verb").order_by(func.random()).first()
+    answer = (
+        db.query(models.Word).filter_by(type="Verb").order_by(func.random()).first()
+    )
     if not answer:
         return ""
     return answer.word
-
 
 
 def remove_word(db: Session, id: int) -> None:

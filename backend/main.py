@@ -62,6 +62,7 @@ async def test(session: Session = Depends(get_db)) -> schemas.TestQuestion:
 async def test_conjugation(session: Session = Depends(get_db)):
     return db_transactions.get_random_verb(session)
 
+
 @app.get("/conjugate")
 async def conjugate_(
     word: str, subject: str, mood: str = "Indicativo", tense: str = "presente"
