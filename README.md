@@ -16,7 +16,7 @@ URL:
   * react-router
   * styled-components
 * Database
-  * PostgreSQL 13 (hosted on heroku)
+  * PostgreSQL 13
 
 ## Structure
 Frontend is located in the `src` directory  
